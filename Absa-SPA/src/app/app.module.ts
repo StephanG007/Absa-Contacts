@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { ContactProfileComponent } from './contacts/contact-profile/contact-profile.component';
@@ -17,6 +17,7 @@ import { ContactCardComponent } from './contacts/contact-card/contact-card.compo
    ],
    imports: [
       BrowserModule,
+      FormsModule,
       HttpClientModule
    ],
    providers: [

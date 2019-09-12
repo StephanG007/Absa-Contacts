@@ -1,3 +1,71 @@
-<div class="frame">
-  
-</div>
+<form>
+  <h2 class="text-center text-primary">Create New Contact</h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-3">
+      {{contact.photoUrl}}
+      <img src="../../../assets/unknown.png" class="col-xs-12" width="100%" style="margin-bottom:10px;">
+      <input [(ngModel)]="contact.photoUrl" class="form-control" type="text" name="PhotoUrl" placeholder="Profile Image URL" />
+    </div>
+    <div class="col-md-8">
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-prepend">
+            <span class="input-group-text">
+            <i class="fa fa-user"></i>
+            </span>
+            </span>
+            <input [(ngModel)]="contact.firstName" class="form-control" name="FirstName" placeholder="First Name">
+        </div>
+        <div class="input-group">
+            <span class="input-group-prepend">
+            <span class="input-group-text">
+            <i class="fa fa-user"></i>
+            </span>
+            </span>
+            <input [(ngModel)]="contact.lastName" class="form-control" name="LastName" placeholder="Surname">
+        </div>
+      </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </span>
+              <input [(ngModel)]="contact.dateOfBirth" type="date" class="form-control" name="DateOfBirth" placeholder="Date Of Birth">    
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">Contact Details:</label>
+          <div class="input-group">
+              <span class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-envelope"></i>
+                </span>
+              </span>
+              <input [(ngModel)]="contact.email" type="email" class="form-control" name="Email" placeholder="Email">
+          </div>
+          <div class="input-group">
+              <span class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-mobile"></i>
+                </span>
+              </span>
+              <input [(ngModel)]="contact.phone" class="form-control" name="Phone" placeholder="Phone Number">
+          </div>
+          <div class="input-group">
+            <span class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-map-marker"></i>
+              </span>
+            </span>
+            <input [(ngModel)]="contact.address" class="form-control" name="Address" placeholder="Address">
+          </div>
+          
+        </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" (click)="createContact()">Create Contact</button>
+</form>
