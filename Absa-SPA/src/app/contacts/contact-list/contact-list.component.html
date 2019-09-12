@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-4">
+    <div *ngFor="let contact of contacts">
+      <app-contact-card [contact]="contact"></app-contact-card>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <app-contact-profile></app-contact-profile>
+  </div>
+</div>
