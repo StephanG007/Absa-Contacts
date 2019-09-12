@@ -1,0 +1,6 @@
+.frame {
+    padding: 8px;
+    border: solid 2px lightgrey;
+    border-radius: 8px;
+    margin-left: 25px;
+}

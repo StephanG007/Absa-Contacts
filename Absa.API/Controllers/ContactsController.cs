@@ -21,7 +21,7 @@ namespace Absa.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var contacts = db.Contacts.ToList();
+            var contacts = db.Contacts.OrderBy(x => x.FirstName).ToList();
             return Ok(contacts);
         }
 
@@ -48,7 +48,7 @@ namespace Absa.API.Controllers
                     x.Email.Contains(search) ||
                     x.Address.Contains(search) ||
                     x.Phone.Contains(search)
-                ).ToList();
+                ).OrderBy(c => c.FirstName).ToList();
 
                 return Ok(contacts);
             }
