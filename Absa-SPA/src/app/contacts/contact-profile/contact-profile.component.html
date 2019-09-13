@@ -1,5 +1,5 @@
 <form>
-  <h2 class="text-center text-primary">Create New Contact</h2>
+  <h2 *ngIf="!contact.id" class="text-center text-primary">Create New Contact</h2>
   <hr>
   <div class="row">
     <div class="col-md-3">
@@ -66,6 +66,10 @@
         </div>
     </div>
   </div>
-
-  <button type="submit" class="btn btn-primary" (click)="createContact()">Create Contact</button>
+  <div class="row">
+      <button  *ngIf="contact.id" type="submit" class="btn btn-secondary col-md-2" (click)="cancel()">Cancel</button>
+      <button  *ngIf="contact.id" type="submit" class="btn btn-primary offset-md-1 col-md-2" (click)="createContact()">Edit Contact</button>
+      <button *ngIf="!contact.id" type="submit" class="btn btn-primary col-md-2" (click)="createContact()">Create Contact</button>
+      <button  *ngIf="contact.id" type="submit" class="btn btn-danger offset-md-5 col-md-2" (click)="deleteContact()">Delete Contact</button>
+  </div>
 </form>

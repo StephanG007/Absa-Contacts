@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { Contact } from 'src/app/_models/contact';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ContactProfileComponent implements OnInit {
   @Input() contact: Contact;
+
   apiUrl = environment.apiUrl + 'contacts/';
   headers = {  } as HttpHeaders;
 
@@ -26,12 +27,17 @@ export class ContactProfileComponent implements OnInit {
     });
   }
 
-  fillContact() {
-    console.log('Populating');
-    this.contact.firstName = 'Stephan';
-    this.contact.lastName = 'Goosen';
-    this.contact.email = 'sggoosen3@gmail.com';
-    this.contact.photoUrl = '../../../assets/unknown.png';
+  cancel() {
+    this.contact = <Contact>{};
   }
+
+  deleteContact() {
+    this.http.delete(this.apiUrl + this.contact.id)
+      .subscribe(res => {
+        this.contact = <Contact>{};
+      });
+  }
+
+
 
 }
