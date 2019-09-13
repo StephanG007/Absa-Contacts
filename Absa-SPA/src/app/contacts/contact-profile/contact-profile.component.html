@@ -72,7 +72,7 @@
   </div>
   <div class="row">
       <button  *ngIf="contact.id" type="submit" class="btn btn-secondary col-md-2" (click)="cancel()">Cancel</button>
-      <button  *ngIf="contact.id" type="submit" class="btn btn-primary offset-md-1 col-md-2" (click)="createContact()">Edit Contact</button>
+      <button  *ngIf="contact.id" type="submit" class="btn btn-primary offset-md-1 col-md-2" (click)="editContact()">Edit Contact</button>
       <button *ngIf="!contact.id" type="submit" class="btn btn-primary col-md-2" (click)="createContact()">Create Contact</button>
       <button  *ngIf="contact.id" type="submit" class="btn btn-danger offset-md-5 col-md-2" (click)="deleteContact()">Delete Contact</button>
   </div>

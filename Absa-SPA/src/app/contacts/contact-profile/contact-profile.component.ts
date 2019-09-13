@@ -27,6 +27,12 @@ export class ContactProfileComponent implements OnInit {
     });
   }
 
+  editContact() {
+    this.http.post(this.apiUrl + 'edit/' + this.contact.id, this.contact).subscribe(response => {
+      console.log(response);
+    });
+  }
+
   cancel() {
     this.contact = <Contact>{};
   }
@@ -37,7 +43,4 @@ export class ContactProfileComponent implements OnInit {
         this.contact = <Contact>{};
       });
   }
-
-
-
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Absa.API.Data;
 using Absa.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Absa.API.Models.Dto;
 
 namespace Absa.API.Controllers
 {
@@ -78,6 +79,24 @@ namespace Absa.API.Controllers
             catch(Exception ex)
             {
                 return BadRequest("Failed to create contact: " + ex.InnerException.Message);
+            }
+        }
+
+        [HttpPost("edit/{id}")]
+        public IActionResult EditContact(int id, [FromBody] ContactDto contactDto)
+        {
+            var contact = db.Contacts.FirstOrDefault(x => x.Id == id);
+            contactDto.modifyDbModel(contact);
+
+            try
+            {
+                db.SaveChanges();
+
+                return Ok("Successfully updated contact");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Failed to update contact: " + ex.InnerException.Message);
             }
         }
 

@@ -18,5 +18,3 @@ If the API does not detect it's SQLite Database, it will generate one and autopo
 The site will automatically load all the users initially, but the search still works.  Remember to press enter!
 
 If you enter a working image URL into the profile form, it will update to display the image.
-
-The Edit Contact button doesn't work yet, but it should be trivial to implement.
