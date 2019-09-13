@@ -5,6 +5,11 @@
     padding: 10px;
 }
 
+.contact-card:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
 .Male {
     background-image: linear-gradient(to right bottom, #dae9e999, #bedde599, #a8cee599, #9dbde499, #a1a9de99);
 }
