@@ -19,4 +19,4 @@ The site will automatically load all the users initially, but the search still w
 
 If you enter a working image URL into the profile form, it will update to display the image.
 
-If I had a bit more time I would have implemented the Edit button to update existing contacts, and added a radio button for gender, but both should be trivial.
+The Edit Contact button doesn't work yet, but it should be trivial to implement.
