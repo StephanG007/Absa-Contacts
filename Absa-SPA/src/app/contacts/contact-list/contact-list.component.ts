@@ -14,14 +14,14 @@ import { HttpClient } from '@angular/common/http';
 export class ContactListComponent implements OnInit {
   baseUrl = environment.apiUrl + 'contacts/';
   contacts: Contact[];
-  newContact = {} as Contact;
+  selectedContact = {} as Contact;
+  searchQuery: string;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.getContacts();
-    console.log(this.contacts);
-  }
+   }
 
   getContacts() {
     return this.http.get<Contact[]>(this.baseUrl)
@@ -30,8 +30,25 @@ export class ContactListComponent implements OnInit {
       });
   }
 
-  getContact(id): Observable<Contact> {
-    return this.http.get<Contact>(this.baseUrl + 'contacts/' + id);
+  searchChange() {
+    if (this.searchQuery.length === 0) {
+      this.getContacts();
+    }
+
+    if (this.searchQuery.length > 0) {
+      this.http.get<Contact[]>(this.baseUrl + 'search/' + this.searchQuery)
+        .subscribe(data => {
+          this.contacts = data;
+        });
+    }
+  }
+
+  getContact(id) {
+    this.http.get<Contact>(this.baseUrl + id)
+      .subscribe(res => {
+        console.log(res);
+        this.selectedContact = res;
+      });
   }
 
 }
