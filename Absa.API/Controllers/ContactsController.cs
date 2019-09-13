@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Absa.API.Data;
+using Absa.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Absa.API.Controllers
@@ -59,15 +60,39 @@ namespace Absa.API.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        [HttpPost("create")]
+        public IActionResult PostContact([FromBody] Contact newContact)
         {
+            ModelState.Remove("Id");
+            if(!ModelState.IsValid)
+                return BadRequest("Invalid Model State");
+            
+            try
+            {
+                db.Contacts.Add(newContact);
+                db.SaveChanges();
+
+                return Ok(newContact); // CreatedAtRoute has bug that makes it unusable
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Failed to create contact: " + ex.InnerException.Message);
+            }
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var contact = db.Contacts.FirstOrDefault(x => x.Id == id);
+            if(contact == null)
+                return NotFound();
+            
+            db.Remove(contact);
+            db.SaveChanges();
+
+            return Ok();
         }
     }
 }

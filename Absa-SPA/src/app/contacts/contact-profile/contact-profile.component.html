@@ -3,8 +3,8 @@
   <hr>
   <div class="row">
     <div class="col-md-3">
-      {{contact.photoUrl}}
-      <img src="../../../assets/unknown.png" class="col-xs-12" width="100%" style="margin-bottom:10px;">
+      <img *ngIf="contact.photoUrl" src="{{contact.photoUrl}}" class="col-xs-12" width="100%" style="margin-bottom:10px;">
+      <img *ngIf="!contact.photoUrl" src="../../../assets/unknown.png" class="col-xs-12" width="100%" style="margin-bottom:10px;">
       <input [(ngModel)]="contact.photoUrl" class="form-control" type="text" name="PhotoUrl" placeholder="Profile Image URL" />
     </div>
     <div class="col-md-8">

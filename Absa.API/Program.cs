@@ -31,6 +31,7 @@ namespace Absa.API
                 catch(Exception ex)
                 {
                     // TODO: Not going to bother with Logging for this exercise
+                    throw ex;
                 }
             }
 

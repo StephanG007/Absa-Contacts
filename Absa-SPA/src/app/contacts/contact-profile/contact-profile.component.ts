@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Contact } from 'src/app/_models/contact';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-contact-profile',
@@ -9,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ContactProfileComponent implements OnInit {
   @Input() contact: Contact;
+  apiUrl = environment.apiUrl + 'contacts/';
+  headers = {  } as HttpHeaders;
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +20,10 @@ export class ContactProfileComponent implements OnInit {
   }
 
   createContact() {
-    alert(this.contact.firstName);
+    console.log(this.contact);
+    this.http.post(this.apiUrl + 'create', this.contact).subscribe(response => {
+      console.log(response);
+    });
   }
 
   fillContact() {

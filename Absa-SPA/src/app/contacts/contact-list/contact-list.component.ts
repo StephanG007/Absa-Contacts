@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class ContactListComponent implements OnInit {
   baseUrl = environment.apiUrl + 'contacts/';
   contacts: Contact[];
-  newContact: Contact;
+  newContact = {} as Contact;
 
   constructor(private http: HttpClient) { }
 
