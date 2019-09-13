@@ -34,20 +34,20 @@ namespace Absa.API.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public IActionResult Post([FromBody] string search)
+        [HttpGet("search/{query}")]
+        public IActionResult Search(string query)
         {
-            if (String.IsNullOrEmpty(search))
+            if (String.IsNullOrEmpty(query))
                 return Ok(db.Contacts.ToList());
 
             try
             {
                 var contacts = db.Contacts.Where(x =>
-                    x.FirstName.Contains(search) ||
-                    x.LastName.Contains(search) ||
-                    x.Email.Contains(search) ||
-                    x.Address.Contains(search) ||
-                    x.Phone.Contains(search)
+                    x.FirstName.Contains(query) ||
+                    x.LastName.Contains(query) ||
+                    x.Email.Contains(query) ||
+                    x.Address.Contains(query) ||
+                    x.Phone.Contains(query)
                 ).OrderBy(c => c.FirstName).ToList();
 
                 return Ok(contacts);
