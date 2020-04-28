@@ -1,117 +1,113 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Absa.API.Data;
 using Absa.API.Models;
-using Microsoft.AspNetCore.Mvc;
 using Absa.API.Models.Dto;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Absa.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ContactsController : ControllerBase
+  [Route("api/[controller]")]
+  [ApiController]
+  public class ContactsController : ControllerBase
+  {
+    private readonly IRepository _repository;
+    public ContactsController(IRepository repository)
     {
-        private readonly DataContext db;
-        public ContactsController(DataContext context)
-        {
-            db = context;
-        }
-
-        // GET api/Contacts
-        [HttpGet]
-        public IActionResult Get()
-        {
-            var contacts = db.Contacts.OrderBy(x => x.FirstName).ToList();
-            return Ok(contacts);
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
-        {
-            var contact = db.Contacts.FirstOrDefault(x => x.Id == id);
-            return Ok(contact);
-        }
-
-        // POST api/values
-        [HttpGet("search/{query}")]
-        public IActionResult Search(string query)
-        {
-            if (String.IsNullOrEmpty(query))
-                return Ok(db.Contacts.ToList());
-
-            try
-            {
-                var contacts = db.Contacts.Where(x =>
-                    x.FirstName.Contains(query) ||
-                    x.LastName.Contains(query) ||
-                    x.Email.Contains(query) ||
-                    x.Address.Contains(query) ||
-                    x.Phone.Contains(query)
-                ).OrderBy(c => c.FirstName).ToList();
-
-                return Ok(contacts);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Error occurred retrieving contacts");
-            }
-        }
-
-        // PUT api/values/5
-
-        [HttpPost("create")]
-        public IActionResult PostContact([FromBody] Contact newContact)
-        {
-            ModelState.Remove("Id");
-            if(!ModelState.IsValid)
-                return BadRequest("Invalid Model State");
-            
-            try
-            {
-                db.Contacts.Add(newContact);
-                db.SaveChanges();
-
-                return Ok(newContact); // CreatedAtRoute has bug that makes it unusable
-            }
-            catch(Exception ex)
-            {
-                return BadRequest("Failed to create contact: " + ex.InnerException.Message);
-            }
-        }
-
-        [HttpPost("edit/{id}")]
-        public IActionResult EditContact(int id, [FromBody] ContactDto contactDto)
-        {
-            var contact = db.Contacts.FirstOrDefault(x => x.Id == id);
-            contactDto.modifyDbModel(contact);
-
-            try
-            {
-                db.SaveChanges();
-
-                return Ok("Successfully updated contact");
-            }
-            catch(Exception ex)
-            {
-                return BadRequest("Failed to update contact: " + ex.InnerException.Message);
-            }
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var contact = db.Contacts.FirstOrDefault(x => x.Id == id);
-            if(contact == null)
-                return NotFound();
-            
-            db.Remove(contact);
-            db.SaveChanges();
-
-            return Ok();
-        }
+      _repository = repository;
     }
+
+    // GET api/Contacts
+    [HttpGet]
+    public async Task<IActionResult> GetContacts()
+    {
+      try
+      {
+        var contacts = await _repository.Get();
+        return Ok(contacts);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.InnerException.Message);
+      }
+    }
+
+    // GET api/values/5
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetContact(int id)
+    {
+      try
+      {
+        var contact = await _repository.Get(id);
+        return Ok(contact);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.InnerException.Message);
+      }
+    }
+
+    // POST api/values
+    [HttpGet("search/{query}")]
+    public async Task<IActionResult> Search(string query)
+    {
+      try
+      {
+        var contacts = await _repository.Search(query);
+        return Ok(contacts);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.InnerException.Message);
+      }
+    }
+
+    // PUT api/values/5
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] Contact newContact)
+    {
+      ModelState.Remove("Id");
+      if (!ModelState.IsValid)
+        return BadRequest("Invalid Model State");
+
+      try
+      {
+        await _repository.Create(newContact);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        return BadRequest("Failed to create contact: " + ex.InnerException.Message);
+      }
+    }
+
+    [HttpPost("edit/{id}")]
+    public async Task<IActionResult> Edit(int id, [FromBody] ContactDto contactDto)
+    {
+      try
+      {
+        await _repository.Edit(id, contactDto);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        return BadRequest("Failed to update contact: " + ex.InnerException.Message);
+      }
+    }
+
+    // DELETE api/values/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+      try
+      {
+        await _repository.Delete(id);
+        return Ok($"Successfully Deleted Contact {id}");
+      }
+      catch (Exception ex)
+      {
+        return BadRequest($"Error Deleting Contact {id}: {ex.InnerException.Message}");
+      }
+    }
+  }
 }

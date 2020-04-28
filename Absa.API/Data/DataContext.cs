@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Absa.API.Data
 {
-    public class DataContext : DbContext
-    {
-        public DataContext(DbContextOptions<DataContext> options) : base (options) {}
-        
-        public DbSet<Value> Values { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-    }
+  public class DataContext : DbContext
+  {
+    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
+    public DbSet<Contact> Contacts { get; set; }
+  }
 }
