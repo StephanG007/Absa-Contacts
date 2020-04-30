@@ -1,0 +1,27 @@
+.contact-card {
+  border: solid 1px darkgray;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.contact-card:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.Male {
+  background-image: linear-gradient(to right bottom, #dae9e999, #bedde599, #a8cee599, #9dbde499, #a1a9de99);
+}
+
+.Female {
+  background-image: linear-gradient(to right bottom, #ffffff99, #f1e8ff99, #e9d0ff99, #e7b5fe99, #ea98f499);
+}
+
+.Unknown {
+  background-image: linear-gradient(to right bottom, #FFFFFF99, #DDDDDD99, #CCCCCC55, #CCCCCC55, #66666699);
+}
+
+img {
+    float: left;
+}

@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-3 frame">
+    <div class="control-group">
+      <input type="text" class="form-control offset-md-1 col-md-9" name="search" (input)="searchChange()" [(ngModel)]="searchQuery" placeholder="Search Contacts: (empty for all)" >
+    </div>
+
+    <div *ngFor="let contact of contacts">
+      <app-contact-card [contact]="contact" (click)="getContact(contact.instanceId)"></app-contact-card>
+    </div>
+  </div>
+  <div class="offset-md-1 col-md-6">
+    <app-contact-profile [contact]="selectedContact" (refresh)="getContacts()"></app-contact-profile>
+  </div>
+</div>
