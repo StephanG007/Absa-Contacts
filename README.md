@@ -1,9 +1,10 @@
-# ABSA Contacts #
+# Phonebook #
 
 *How to run*
 This site is made up of two separate projects that both have to be run.
 To run the API, in the commandline from the API folder, run:
   > dotnet run
+
 The frontend is an Angular, Single Page Application.  In order to run it:
 1. First download the required packages with:
   > npm install
